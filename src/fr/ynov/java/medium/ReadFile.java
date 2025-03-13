@@ -1,16 +1,13 @@
 package fr.ynov.java.medium;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.Scanner;
 
 public class ReadFile {
     public static void main(String[] args) {
-        File directory = createDirectory("ReadFiletest");
-        createFile("test1","abc");
-        createFile("test2","le java c'est trop bien");
-        createFile("test3","123");
-        readFile(directory);
+        copyFileContent(new File("src/fr/ynov/java/medium/test.txt"));
     }
 
     public static File createDirectory(String directoryName) {
@@ -49,6 +46,24 @@ public class ReadFile {
             }catch (Exception e){
                 System.err.println(e);
             }
+        }
+    }
+
+    public  static void copyFileContent(File file) {
+        try {
+            Scanner reader = new Scanner(file);
+            String allContent = "";
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                allContent = allContent + line + " ";
+            }
+            File newFile =  new File("src/fr/ynov/java/medium/FileCopied");
+            file.createNewFile();
+            FileWriter fw = new FileWriter(newFile);
+            fw.write(allContent);
+            fw.close();
+        }catch (Exception e){
+            System.err.println(e);
         }
     }
 }
